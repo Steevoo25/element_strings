@@ -1,7 +1,7 @@
 # Breaking Bad Algorithm
 The title and credits of the hit series *Breaking Bad* use chemical symbols from the Periodic Table of elements as parts of the words, I thought it would be interesting to see what words can be made __entirely__ from these symbols.
 ## How to Run
-The only requirement for this program is [Python]{https://www.python.org/downloads/}
+The only requirement for this program is [Python](https://www.python.org/downloads/)
 ### Detailed Steps
 - Download Python from the link above
 - Either download or Clone this repository
