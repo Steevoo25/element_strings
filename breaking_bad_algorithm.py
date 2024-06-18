@@ -41,7 +41,7 @@ def create_string_from_element_symbols(word: str):
                     elements_to_create.append(double_symbols[word[pos-1:pos+1].capitalize()])
                     pos +=1
                     previous_was_single = False
-            else: return None
+                else: return None
     return elements_to_create
 
 if __name__ == "__main__":
