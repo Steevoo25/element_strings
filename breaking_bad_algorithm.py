@@ -57,7 +57,7 @@ if __name__ == "__main__":
         word = input("Please enter a word\n").upper().strip()
         valid_word = word.isalpha()
     while not word == 'Q':
-        word = input("Please enter a word\n").upper().strip()
+        word = input("Please enter a word (Press Q to quit)\n").upper().strip()
         result = create_string_from_element_symbols(word)
         if result == None:
             print("Word not possible:", word)
