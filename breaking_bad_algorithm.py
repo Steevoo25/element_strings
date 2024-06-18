@@ -1,12 +1,13 @@
 # open file
 elements_file = open("elements.txt", "r")
 elements = elements_file.read()
-# extract symbols
 elements = elements.split("\n")
 
+# Initialise dicts
 single_symbols = {}
 double_symbols = {}
-# 
+
+# sort symbols into single and double symbols, with singles being made of one character and doubles made of two
 for element in elements:
     element = element.split(",")
     if len(element[1]) == 1:
@@ -23,26 +24,31 @@ def check_double_symbol(word: str):
 def create_string_from_element_symbols(word: str):
     pos = 0
     elements_to_create = []
-    previous_was_single = False
+    single_just_used = False
+
     while pos < len(word):
         if check_single_symbol(word[pos]):
             elements_to_create.append(single_symbols[word[pos]])
             pos +=1
-            previous_was_single = True
+            single_just_used = True
+
         elif check_double_symbol(word[pos:pos+2].capitalize()):
             elements_to_create.append(double_symbols[word[pos:pos+2].capitalize()])
             pos +=2
-            previous_was_single = False
+            single_just_used = False
+
         else:
-            # Case where a single symbol has been selected but cannot go any further, so check double symbols
-            if previous_was_single:
+            # Case where a single symbol has been selected but cannot go any further, so need check double symbols starting from the previous character
+            if single_just_used:
                 if check_double_symbol(word[pos-1:pos+1].capitalize()):
-                    elements_to_create.pop(len(elements_to_create)-1)
+
+                    elements_to_create.pop(len(elements_to_create)-1) # Remove most recent addition to list
                     elements_to_create.append(double_symbols[word[pos-1:pos+1].capitalize()])
                     pos +=1
-                    previous_was_single = False
+                    single_just_used = False
                 else: return None
             else: return None
+
     return elements_to_create
 
 if __name__ == "__main__":
@@ -50,8 +56,10 @@ if __name__ == "__main__":
     while not valid_word:
         word = input("Please enter a word\n").upper().strip()
         valid_word = word.isalpha()
-    result = create_string_from_element_symbols(word)
-    if result == None:
-        print("Word not possible:", word)
-    else:
-        print(result, "can be used to create the word", word)
+    while not word == 'Q':
+        word = input("Please enter a word\n").upper().strip()
+        result = create_string_from_element_symbols(word)
+        if result == None:
+            print("Word not possible:", word)
+        else:
+            print(word, "passes the Breaking Bad test\n", result)
