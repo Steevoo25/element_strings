@@ -18,21 +18,25 @@ for element in elements:
 
 
 def check_single_symbol(word: str):
-    return 0
+    return word in single_symbols.keys()
 
 def check_double_symbol(word: str):
-    return 0
+    return word in double_symbols.keys()
 
-def create_string_from_element_symbols(word: str) -> list:
+def create_string_from_element_symbols(word: str):
     pos = 0
+    elements_to_create = []
     while pos < len(word):
-        check_single_symbol(word[pos])
-        check_double_symbol(word[pos])
-    return []
+        if check_single_symbol(word[pos]):
+            elements_to_create.append(single_symbols[word[pos]])
+            pos +=1
+        
+    print(elements_to_create)
+    return elements_to_create
 
 if __name__ == "__main__":
     valid_word = False
     while not valid_word:
-        word = input("Please enter a word").upper().strip()
+        word = input("Please enter a word\n").upper().strip()
         valid_word = word.isalpha()
     create_string_from_element_symbols(word)
