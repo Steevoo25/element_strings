@@ -11,6 +11,11 @@ for element in elements:
 
 print(symbols)
 
-
 def create_string_from_element_symbols(word: str) -> list:
-    return 
+    return []
+
+if __name__ == "__main__":
+    valid_word = False
+    while not valid_word:
+        word = input("Please enter a word").upper().strip()
+    valid_word = word.isalpha()
