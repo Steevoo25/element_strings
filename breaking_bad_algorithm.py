@@ -56,12 +56,13 @@ def setup_parser():
     arg_parser = ArgumentParser(description='A program that checks if a given word can be constructed using scientific element Symbols')
     arg_parser.add_argument('-f', help='Path to file of words to check. File must be CSV format. Writes results to a file in the current directory')
 
-    return 
+
+    return arg_parser.parse_args()
 
 
 if __name__ == "__main__":
 
-    
+    print(setup_parser())
     valid_word = False
     while not valid_word:
         word = input("Please enter a word\n").upper().strip()
@@ -69,7 +70,7 @@ if __name__ == "__main__":
     while not word == 'Q':
         word = input("Please enter a word (Press Q to quit)\n").upper().strip()
         result = create_string_from_element_symbols(word)
-        if result == None:
-            print("Word not possible:", word)
-        else:
+        if not result is None:
             print(word, "passes the Breaking Bad test\n", result)
+        else:
+            print("Word not possible:", word)
