@@ -59,13 +59,27 @@ def setup_parser() -> str | None:
     args = arg_parser.parse_args()
     try:
         file = getattr(args)
-    except TypeError as e:
+    except TypeError:
         file = None
     finally:
         return file
 
+def run_cli():
+
+    return 
+
+def run_file():
+
+    return
+
+
 def main(file):
-    
+    if file is None:
+        run_cli()
+    else:
+        try:
+            run_file()
+        except FileNotFoundError:
     return
 
 if __name__ == "__main__":
