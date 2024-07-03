@@ -65,8 +65,17 @@ def setup_parser() -> str | None:
         return file
 
 def run_cli():
-
-    return 
+    valid_word = False
+    while not valid_word:
+        word = input("Please enter a word\n").upper().strip()
+        valid_word = word.isalpha()
+    while not word == 'Q':
+        word = input("Please enter a word (Press Q to quit)\n").upper().strip()
+        result = create_string_from_element_symbols(word)
+        if not result is None:
+            print(word, "passes the Breaking Bad test\n", result)
+        else:
+            print("Word not possible:", word)
 
 def run_file():
 
@@ -80,20 +89,9 @@ def main(file):
         try:
             run_file()
         except FileNotFoundError:
+            print("File Error")
     return
 
 if __name__ == "__main__":
-    main()
     file = setup_parser()
-    
-    valid_word = False
-    while not valid_word:
-        word = input("Please enter a word\n").upper().strip()
-        valid_word = word.isalpha()
-    while not word == 'Q':
-        word = input("Please enter a word (Press Q to quit)\n").upper().strip()
-        result = create_string_from_element_symbols(word)
-        if not result is None:
-            print(word, "passes the Breaking Bad test\n", result)
-        else:
-            print("Word not possible:", word)
+    main(file)
