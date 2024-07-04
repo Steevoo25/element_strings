@@ -1,4 +1,6 @@
 from argparse import ArgumentParser
+import csv
+import os
 # open file
 elements_file = open("elements.txt", "r")
 elements = elements_file.read()
@@ -52,7 +54,7 @@ def create_string_from_element_symbols(word: str):
 
     return elements_to_create
 
-def setup_parser() -> str | None:
+def setup_parser():
     arg_parser = ArgumentParser(description='A program that checks if a given word can be constructed using scientific element Symbols')
     arg_parser.add_argument('-f', help='Path to file of words to check. File must be CSV format. Writes results to a file in the current directory')
 
@@ -67,31 +69,48 @@ def setup_parser() -> str | None:
 def run_cli():
     valid_word = False
     while not valid_word:
-        word = input("Please enter a word\n").upper().strip()
+        word = input("Please enter a word (Press Q to quit)\n").upper().strip()
         valid_word = word.isalpha()
     while not word == 'Q':
         word = input("Please enter a word (Press Q to quit)\n").upper().strip()
         result = create_string_from_element_symbols(word)
-        if not result is None:
-            print(word, "passes the Breaking Bad test\n", result)
-        else:
+        if result == None and not word == 'Q':
             print("Word not possible:", word)
+        else:
+            print(word, "passes the Breaking Bad test\n", result)
 
-def run_file():
+def run_file(path:str):
 
+    current_dir = os.getcwd()
+    results = []
+    print('Opneing File:', path)
+
+    with open(path, 'r') as csv_file:
+        csv_data = csv.reader(csv_file, delimiter=',')
+        for row in csv_data:
+            print(row)
+            result = create_string_from_element_symbols(row)
+            results.append(result)
+
+    results_path = current_dir + 'results.csv'
+    print("Writing results to",results_path )
+
+    with open(results_path, 'w+') as results_file:
+        results_writer = csv.writer(results_file, delimiter=',\n')
+        results_writer.writerows(results)
     return
 
 
-def main(file):
-    if file is None:
+def main(path):
+    if path is None:
         run_cli()
     else:
         try:
-            run_file()
+            run_file(path)
         except FileNotFoundError:
             print("File Error")
     return
 
 if __name__ == "__main__":
-    file = setup_parser()
-    main(file)
+    path = setup_parser()
+    main(path)
