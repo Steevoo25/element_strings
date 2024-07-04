@@ -86,14 +86,19 @@ def run_file(path:str):
         csv_data = csv.reader(csv_file, delimiter=',')
         for row in csv_data:
             result = create_string_from_element_symbols(row[0])
+            if result == None:
+                result = ''
+            #result.insert(0, row[0])
             results.append(result)
 
     results_path = current_dir + '\\results.csv'
-    print("Writing results to", results_path)
+    print("Writing results to: ", results_path)
 
-    with open(results_path, 'w+') as results_file:
+    with open(results_path, 'w+', newline='\n') as results_file:
         results_writer = csv.writer(results_file, delimiter=',')
-        results_writer.writerows(results)
+        for result in results:
+
+            results_writer.writerow(result)
     return
 
 def main(path):
@@ -104,7 +109,9 @@ def main(path):
         try:
             run_file(path)
         except FileNotFoundError:
-            print("File Error")
+            print("File Not Found Error\nPlease make sure the file exists")
+        except PermissionError:
+            print("Permissions Error\nPlease make sure you have access to the file")
     return
 
 if __name__ == "__main__":
