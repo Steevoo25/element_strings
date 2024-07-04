@@ -59,12 +59,9 @@ def setup_parser():
     arg_parser.add_argument('-f', help='Path to file of words to check. File must be CSV format. Writes results to a file in the current directory')
 
     args = arg_parser.parse_args()
-    try:
-        file = getattr(args)
-    except TypeError:
-        file = None
-    finally:
-        return file
+    print('args', args)
+    file = getattr(args, 'f', None)
+    return file
 
 def run_cli():
     valid_word = False
@@ -74,9 +71,9 @@ def run_cli():
     while not word == 'Q':
         word = input("Please enter a word (Press Q to quit)\n").upper().strip()
         result = create_string_from_element_symbols(word)
-        if result == None and not word == 'Q':
+        if result == None:
             print("Word not possible:", word)
-        else:
+        elif not word == 'Q':
             print(word, "passes the Breaking Bad test\n", result)
 
 def run_file(path:str):
@@ -102,6 +99,7 @@ def run_file(path:str):
 
 
 def main(path):
+    print('path', path)
     if path is None:
         run_cli()
     else:
