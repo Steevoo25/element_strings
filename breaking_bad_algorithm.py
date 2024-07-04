@@ -82,21 +82,19 @@ def run_file(path:str):
     results = []
     print('Opneing File:', path)
 
-    with open(path, 'r') as csv_file:
+    with open(path, 'r', newline='') as csv_file:
         csv_data = csv.reader(csv_file, delimiter=',')
         for row in csv_data:
-            print(row)
-            result = create_string_from_element_symbols(row)
+            result = create_string_from_element_symbols(row[0])
             results.append(result)
 
-    results_path = current_dir + 'results.csv'
-    print("Writing results to",results_path )
+    results_path = current_dir + '\\results.csv'
+    print("Writing results to", results_path)
 
     with open(results_path, 'w+') as results_file:
-        results_writer = csv.writer(results_file, delimiter=',\n')
+        results_writer = csv.writer(results_file, delimiter=',')
         results_writer.writerows(results)
     return
-
 
 def main(path):
     print('path', path)
