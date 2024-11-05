@@ -1,6 +1,11 @@
+# This script allows you to run the breaking bad algorithm in two ways:-
+#           1.) Through the command line interface, by typing a word
+#           2.) by passing a path to a csv containing words to check
+
 from argparse import ArgumentParser
 import csv
 import os
+
 # open file
 elements_file = open("elements.txt", "r")
 elements = elements_file.read()
@@ -65,14 +70,18 @@ def setup_parser():
 
 def run_cli():
     valid_word = False
+
     while not valid_word:
         word = input("Please enter a word (Press Q to quit)\n").upper().strip()
         valid_word = word.isalpha()
+
     while not word == 'Q':
         word = input("Please enter a word (Press Q to quit)\n").upper().strip()
         result = create_string_from_element_symbols(word)
+
         if result == None:
             print("Word not possible:", word)
+
         elif not word == 'Q':
             print(word, "passes the Breaking Bad test\n", result)
 
