@@ -12,4 +12,6 @@ N.B. This project was first suggested to me by my friend Sam over 2 years ago, a
 
 ## TODO
 - Support for sentences
-- Data Analysis on english dictionary
+- Data Analysis
+    - English Dictionary
+    - All (?) Dictionaries
