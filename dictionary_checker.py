@@ -6,23 +6,45 @@ import pandas as pd
 
 import csv
 
-# -- STRUCTURE--
+SPECIAL_CHARACTERS = ["'", "-", " "]
+
+def remove_special_chars(word: str, chars: list) -> str:
+    for char in chars:
+        try:
+            word = word.replace(char, "")
+        except AttributeError as e:
+            print(word, "\n", e)
+    return word
+            
+        
+        
+
+
+# -- IMPORT DATA --
+
+# word | length | BrBa Result
 
 path : str = './Dictionaries/English/OPTED-Dictionary.csv'
+eng_dict = pd.read_csv(path)
 
-with open(path, 'r', newline='') as csv_file:
-    df = pd.DataFrame(csv_file)
+# -- DATA CLEANING --
 
-print(df)
-#data cleaning
-#1 remvoe duplicates
-#2 remove spaces
-#3 remove special characters "-, ', "
+# remove unneccesary columns
+eng_dict = eng_dict.drop(['POS', 'Definition'], axis=1)
 
-# import csv into df
-# df structure:
-# word | languague | length | BrBa Result
+# remove empty rows
+eng_dict = eng_dict.dropna()
 
+# remove special characters: " ", "'", "-"
+eng_dict['Word'] = eng_dict['Word'].apply(remove_special_chars, chars=SPECIAL_CHARACTERS)
+
+# remove duplicates
+eng_dict = eng_dict.drop_duplicates()
+
+eng_dict['breaking_bad_test'] = eng_dict['Word'].apply(create_string_from_element_symbols)
 # run words through BrBa and save results into df
 
+eng_dict.sort_values('breaking_bad_test')
+
+print(eng_dict)
 # plot results
