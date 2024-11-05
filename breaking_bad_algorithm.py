@@ -1,6 +1,6 @@
 # This script allows you to run the breaking bad algorithm in two ways:-
 #           1.) Through the command line interface, by typing a word
-#           2.) by passing a path to a csv containing words to check
+#           2.) by passing a path (relative to parent directory) to a csv containing words to check 
 
 from argparse import ArgumentParser
 import csv
@@ -16,6 +16,8 @@ single_symbols = {}
 double_symbols = {}
 
 # sort symbols into single and double symbols, with singles being made of one character and doubles made of two
+# element[i] = name, symbol, index
+
 for element in elements:
     element = element.split(",")
     if len(element[1]) == 1:
