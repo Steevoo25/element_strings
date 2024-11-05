@@ -11,5 +11,5 @@ The only requirement for this program is [Python](https://www.python.org/downloa
 N.B. This project was first suggested to me by my friend Sam over 2 years ago, at which point I attempted it and was unable to provide a fully working program, which is why I have revisited it now.
 
 ## TODO
-- String constants/cleanup
+- Support for sentences
 - Data Analysis on english dictionary
