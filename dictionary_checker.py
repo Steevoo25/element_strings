@@ -11,9 +11,9 @@ import csv
 path : str = './Dictionaries/English/OPTED-Dictionary.csv'
 
 with open(path, 'r', newline='') as csv_file:
-    csv_data = csv.reader(csv_file, delimiter=',')
-    for row in csv_data:
-        print(row)
+    df = pd.DataFrame(csv_file)
+
+print(df)
 #data cleaning
 #1 remvoe duplicates
 #2 remove spaces
