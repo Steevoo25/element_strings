@@ -88,6 +88,11 @@ def run_cli():
             print(word, "passes the Breaking Bad test\n", result)
 
 def run_file(path:str):
+    """Runs the breaking bad algorithm in the case that file mode has been chosen (-f)
+
+    Args:
+        path (str): relative path to the csv file (from project root)
+    """
 
     current_dir = os.getcwd()
     results = []
