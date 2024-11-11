@@ -17,10 +17,6 @@ def remove_special_chars(word: str, chars: list) -> str:
             print(word, "\n", e)
     return word
             
-        
-        
-
-
 # -- IMPORT DATA --
 
 # word | length | BrBa Result
@@ -53,4 +49,13 @@ eng_dict['breaking_bad_test'] = eng_dict['Word'].apply(create_string_from_elemen
 results = eng_dict[eng_dict['breaking_bad_test'].notna()]
 results.reset_index()
 print(results.head())
+
+# How many words in the English Dictionary can be created with Element Symbols?
+count_of_creatable = len(results)
+print(count_of_creatable)
+
+# What % is this of the total?
+count_of_words = len(eng_dict)
+proportion_of_dictionary = 100 * (count_of_creatable / count_of_words)
+print(proportion_of_dictionary)
 # plot results
