@@ -3,6 +3,7 @@
 from breaking_bad_algorithm import create_string_from_element_symbols
 from matplotlib import pyplot as plt
 import pandas as pd
+import time
 
 import csv
 
@@ -30,13 +31,16 @@ eng_dict = pd.read_csv(path)
 # -- DATA CLEANING --
 
 # remove unneccesary columns
-eng_dict = eng_dict.drop(['POS', 'Definition'], axis=1)
+eng_dict = eng_dict.drop(['POS'], axis=1)
 
 # remove empty rows
 eng_dict = eng_dict.dropna()
 
 # remove special characters: " ", "'", "-"
+start = time.time()
 eng_dict['Word'] = eng_dict['Word'].apply(remove_special_chars, chars=SPECIAL_CHARACTERS)
+end = time.time()
+
 
 # remove duplicates
 eng_dict = eng_dict.drop_duplicates()
@@ -44,7 +48,9 @@ eng_dict = eng_dict.drop_duplicates()
 eng_dict['breaking_bad_test'] = eng_dict['Word'].apply(create_string_from_element_symbols)
 # run words through BrBa and save results into df
 
-eng_dict.sort_values('breaking_bad_test')
 
-print(eng_dict)
+
+results = eng_dict[eng_dict['breaking_bad_test'].notna()]
+results.reset_index()
+print(results.head())
 # plot results
